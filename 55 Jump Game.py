@@ -17,9 +17,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        n = len(nums)
-        hold = n-1
-        for i in range(n)[::-1]:
-            if i + nums[i] >= hold:
-                hold = i
-        return not hold
+        m = 0
+        for i, n in enumerate(nums):
+            if i > m:
+                return False
+            m = max(m, i+n)
+        return True

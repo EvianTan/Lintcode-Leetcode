@@ -10,8 +10,6 @@ Above is a 3 x 7 grid. How many possible unique paths are there?
 
 Note: m and n will be at most 100.
 '''
-
-import math
 class Solution(object):
     def uniquePaths(self, m, n):
         """
@@ -19,4 +17,8 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        return math.factorial(m+n-2)/(math.factorial(m-1)*math.factorial(n-1))
+        dp = [[1 for x in range(n)] for x in range(m)]
+        for i in range(1,m):
+            for j in range(1,n):
+                dp[i][j]=dp[i-1][j]+dp[i][j-1]
+        return dp[-1][-1]
