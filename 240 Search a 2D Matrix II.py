@@ -27,13 +27,15 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        if not matrix:
-            return False
-        m = len(matrix)
-        n = len(matrix[0])
-        for i in range(m):
-            for j in range(n):
-                if matrix[i][j] == target:
-                    return True
-        else:
-            return False
+        if matrix == [] or matrix[0] == []:
+            return False            
+        m, n = len(matrix), len(matrix[0])
+        i, j = m-1, 0
+        while i >= 0 and j < n:
+            if matrix[i][j] == target:
+                return True
+            elif matrix[i][j] < target:
+                j += 1
+            elif matrix[i][j] > target:
+                i -= 1
+        return False

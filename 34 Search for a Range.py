@@ -17,16 +17,30 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        if target not in nums:
-            return [-1,-1]
+        if not nums:
+            return [-1, -1]
+        start, end = 0, len(nums)-1
+        while start+1 < end:
+            mid = (start+end)/2
+            if nums[mid] >= target:
+                end = mid
+            else:
+                start = mid
+        if nums[start] == target:
+            a = start
+        elif nums[end] == target:
+            a = end
         else:
-            n = len(nums)
-            res = []
-            a = nums.index(target)
-            for i in range(a,n):
-                if nums[i]==target:
-                    res.append(i)
-                else:
-                    i = i-1
-                    break
-            return [a,i]
+            return [-1,-1]
+        start, end = a, len(nums)-1
+        while start+1 < end:
+            mid = (start+end)/2
+            if nums[mid] <= target:
+                start = mid
+            else:
+                end = mid
+        if nums[end] == target:
+            b = end
+        else:
+            b = start
+        return [a,b]

@@ -15,7 +15,37 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        if target in nums:
-            return nums.index(target)
+        if not nums:
+            return -1
+        start, end = 0, len(nums)-1
+        if nums[start] < nums[end]:
+            max = len(nums)-1
+        else:
+            while start+1 < end:
+                mid = (start+end)/2
+                if nums[mid] > nums[start]:
+                    start = mid
+                else:
+                    end = mid
+            if nums[start] < nums[end]:
+                max = end
+            else:
+                max = start
+        
+        if nums[0] > target:
+            start, end = max, len(nums)-1
+        elif nums[0] <= target:
+            start, end = 0, max
+        
+        while start+1 < end:
+            mid = (start+end)/2
+            if nums[mid] >= target:
+                end = mid
+            elif nums[mid] < target:
+                start = mid
+        if nums[start] == target:
+            return start
+        elif nums[end] == target:
+            return end
         else:
             return -1
