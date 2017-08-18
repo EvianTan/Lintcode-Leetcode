@@ -29,7 +29,16 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-        if root in (None, p, q): 
+        if root is None:
+            return None
+        if root == p or root == q:
             return root
-        left, right = (self.lowestCommonAncestor(kid, p, q) for kid in (root.left, root.right))
-        return root if left and right else left or right
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if left is not None and right is not None:
+            return root
+        if left is not None:
+            return left
+        if right is not None:
+            return right
+        return None

@@ -34,3 +34,22 @@ class Solution(object):
             res.append([node.val for node in level])            
             level = [kid for n in level for kid in (n.left, n.right) if kid]
         return res
+        
+    '''
+    def levelOrder(self, root):
+        # write your code here
+        results = []
+        if not root:
+            return results
+        q = [root]
+        while q:
+            new_q = []
+            results.append([n.val for n in q])
+            for node in q:
+                if node.left:
+                    new_q.append(node.left)
+                if node.right:
+                    new_q.append(node.right)
+            q = new_q
+        return results
+    '''

@@ -11,19 +11,25 @@ class Solution(object):
         :type divisor: int
         :rtype: int
         """
-        INT_MAX = 2147483647
-        if divisor == 0:
-            return INT_MAX
-        neg = dividend > 0 and divisor < 0 or dividend < 0 and divisor > 0
-        a, b = abs(dividend), abs(divisor)
-        ans, shift = 0, 31
-        while shift >= 0:
-            if a >= b << shift:
-                a -= b << shift
-                ans += 1 << shift
-            shift -= 1
-        if neg:
-            ans = - ans
-        if ans > INT_MAX:
-            return INT_MAX
-        return ans
+        sign = 1
+        if dividend == 0:
+            return 0
+        elif (dividend > 0 and divisor < 0) or (dividend < 0 and divisor > 0):
+            sign = -1
+        dividend = abs(dividend)
+        divisor = abs(divisor)
+        a = divisor
+        count = 0
+        while dividend >= a:
+            count += 1
+            hold = 0
+            while divisor*2 <= dividend:
+                divisor *= 2
+                hold += 1
+                count += 2**(hold-1)
+            dividend -= divisor
+            divisor = a
+        if count*sign > 2147483647 or count*sign < -2147483648:
+            return 2147483647
+        else:
+            return count*sign

@@ -25,7 +25,23 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
+        '''
         if root is None:
             return []
         else:
             return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+        '''
+        if root is None:
+            return []
+        stack = []
+        inorder = []
+        while True:
+            while root:
+                stack.append(root)
+                root = root.left
+            if stack == []:
+                break
+            node = stack.pop()
+            inorder.append(node.val)
+            root = node.right
+        return inorder
