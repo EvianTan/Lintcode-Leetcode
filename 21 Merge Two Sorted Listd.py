@@ -15,11 +15,24 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        if not l1 or not l2:
-            return l1 or l2
-        if l1.val < l2.val:
-            l1.next = self.mergeTwoLists(l1.next, l2)
-            return l1
-        else:
-            l2.next = self.mergeTwoLists(l1, l2.next)
+        if l1 is None:
             return l2
+        if l2 is None:
+            return l1
+        dummy = ListNode(0)
+        curt = dummy
+        temp1, temp2 = l1, l2
+        while temp1 is not None and temp2 is not None:
+            if temp1.val < temp2.val:
+                curt.next = temp1
+                curt = curt.next
+                temp1 = temp1.next
+            else:
+                curt.next = temp2
+                curt = curt.next
+                temp2 = temp2.next
+        if temp1 is None:
+            curt.next = temp2
+        else:
+            curt.next = temp1
+        return dummy.next
