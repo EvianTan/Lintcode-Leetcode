@@ -1,5 +1,5 @@
 '''
-Given a binary tree, return the preorder traversal of its nodes' values.
+Given a binary tree, return the postorder traversal of its nodes' values.
 
 For example:
 Given binary tree {1,#,2,3},
@@ -8,7 +8,7 @@ Given binary tree {1,#,2,3},
      2
     /
    3
-return [1,2,3].
+return [3,2,1].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 '''
@@ -20,33 +20,21 @@ Note: Recursive solution is trivial, could you do it iteratively?
 #         self.left = None
 #         self.right = None
 
-'''
 class Solution(object):
-    def preorderTraversal(self, root):
+    def postorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
         """
         if not root:
             return []
-        return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
-'''
-
-class Solution(object):
-    def preorderTraversal(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[int]
-        """
-        if root is None:
-            return []
         stack = [root]
-        preorder = []
+        postorder = []
         while stack:
             node = stack.pop()
-            preorder.append(node.val)
-            if node.right:
-                stack.append(node.right)
+            postorder.append(node.val)
             if node.left:
                 stack.append(node.left)
-        return preorder
+            if node.right:
+                stack.append(node.right)
+        return postorder[::-1]

@@ -35,13 +35,12 @@ class Solution(object):
             return []
         stack = []
         inorder = []
-        while True:
-            while root:
-                stack.append(root)
-                root = root.left
-            if stack == []:
-                break
+        wnode = root
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
             node = stack.pop()
             inorder.append(node.val)
-            root = node.right
+            node = node.right
         return inorder

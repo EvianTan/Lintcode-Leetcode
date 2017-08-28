@@ -20,16 +20,14 @@ class Solution:
     # @return: the minimum number in the array
     def findMin(self, nums):
         # write your code here
-        start, end = 0, len(nums)-1
+        if len(nums) == 0:
+            return 0
+        start, end = 0, len(nums) - 1
+        target = nums[-1]
         while start+1 < end:
             mid = (start+end)/2
-            if nums[mid] < nums[start] and nums[mid] < nums[end]:
+            if nums[mid] < target:
                 end = mid
-            elif nums[mid] > nums[start] and nums[mid] > nums[end]:
+            else:
                 start = mid
-            elif nums[mid] > nums[start] and nums[mid] < nums[end]:
-                end = mid
-        if nums[start]>nums[end]:
-            return nums[end]
-        else:
-            return nums[start]
+        return min(nums[start], nums[end])
