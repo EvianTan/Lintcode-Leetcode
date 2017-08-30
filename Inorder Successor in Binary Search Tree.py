@@ -33,5 +33,4 @@ class Solution(object):
                 root = root.left
             else:
                 root = root.right
-
         return successor
