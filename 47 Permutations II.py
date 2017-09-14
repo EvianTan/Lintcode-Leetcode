@@ -10,19 +10,25 @@ For example,
 ]
 '''
 
-def _permute(result, x, nums):
-            if nums == []:
-                result += [x]
-            else:
-                for i in range(len(nums)):
-                    if i > 0 and nums[i] == nums[i-1]:
-                        continue
-                    _permute(result, x+[nums[i]], nums[:i]+nums[i+1:])
-                    
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
         if nums is None:
             return []
-        if len(nums) == 0:
+        if nums is []:
             return [[]]
         result = []
-        _permute(result, [], sorted(nums))
+        self.helper(result, [], sorted(nums))
         return result
+        
+    def helper(self, result, temp, nums):
+        if nums == []:
+            result += [temp]
+        else:
+            for i in range(len(nums)):
+                if i > 0 and nums[i] == nums[i-1]:
+                    continue
+                self.helper(result, temp+[nums[i]], nums[:i]+nums[i+1:])

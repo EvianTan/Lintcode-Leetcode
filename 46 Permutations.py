@@ -19,10 +19,17 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        if len(nums) <=1: 
-            return [nums]
-        res = []
-        for i, x in enumerate(nums):
-            for elem in self.permute(nums[:i]+nums[i+1:]):
-                res.append([x]+elem)
-        return res
+        if nums is None:
+            return []
+        if nums is []:
+            return [[]]
+        result = []
+        self.helper(result, [], sorted(nums))
+        return result
+        
+    def helper(self, result, temp, nums):
+        if nums == []:
+            result += [temp]
+        else:
+            for i in range(len(nums)):
+                self.helper(result, temp+[nums[i]], nums[:i]+nums[i+1:])
