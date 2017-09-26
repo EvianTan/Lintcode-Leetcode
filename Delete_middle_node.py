@@ -9,7 +9,7 @@ class Solution:
         # write your code here
         if node is None or node.next is None:
             return
-        next = node.next;
-        node.val = next.val
-        node.next = next.next
+        temp = node.next
+        node.val = temp.val
+        node.next = temp.next
         return
