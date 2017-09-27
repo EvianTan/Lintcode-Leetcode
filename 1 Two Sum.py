@@ -17,8 +17,13 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        n = len(nums)
-        for i in range(0,n-1):
-            for j in range(i+1,n):
-                if nums[i]+nums[j]==target:
-                    return [i,j]
+        if len(nums) < 2:
+            return []
+        res = []
+        dict = {}
+        for i in range(len(nums)):
+            if (target-nums[i]) not in dict:
+                dict[nums[i]] = i
+            else:
+                return [dict[target-nums[i]], i]
+        return [-1,-1]
