@@ -21,4 +21,22 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        return nums.sort()
+        if len(nums) <= 1:
+            return 
+        l = 0
+        r = len(nums)-1
+        i = 0
+        while i <= r:
+            if nums[i] == 0:
+                temp = nums[l]
+                nums[l] = nums[i]
+                nums[i] = temp
+                l += 1
+                i += 1
+            elif nums[i] == 1:
+                i += 1
+            else:
+                temp = nums[i]
+                nums[i] = nums[r]
+                nums[r] = temp
+                r -= 1
