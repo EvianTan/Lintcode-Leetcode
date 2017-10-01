@@ -14,12 +14,24 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        nums = set(nums)
+        dict = {}
+        for x in num:
+            dict[x] = 1
         res = 0
-        for x in nums:
-            if x-1 not in nums:
-                y = x+1
-                while y in nums:
-                    y += 1
-                res = max(res,y-x)
+        for x in num:
+            if x in dict:
+                len = 1
+                del dict[x]
+                l = x-1
+                r = x+1
+                while l in dict:
+                    del dict[l]
+                    l -= 1 
+                    len += 1
+                while r in dict:
+                    del dict[r]
+                    r += 1
+                    len += 1
+                if res < len:
+                    res = len
         return res

@@ -23,10 +23,18 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        n = len(matrix)
-        res = []
-        for i in range(n):
-            for j in range(n):
-                res.append(matrix[i][j])
-        res.sort()
-        return res[k-1]
+        import heapq
+        if not matrix:
+            return 0
+        heap = []
+        row = len(matrix)
+        col = len(matrix[0])
+        for i in range(col):
+            heapq.heappush(heap, (matrix[0][i], 0, i))
+        for j in range(k-1):
+            curt = heapq.heappop(heap)
+            x = curt[1]
+            y = curt[2]
+            if x+1 < row:
+                heapq.heappush(heap, (matrix[x+1][y], x+1, y))
+        return heap[0][0]
